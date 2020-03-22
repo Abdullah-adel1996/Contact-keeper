@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment } from 'react';
 import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Navbar from './components/navbar';
+import Register from './components/register';
+import Login from './components/login';
+import { connect } from 'react-redux'
+import contacts from './components/contacts';
 
-function App() {
+
+const app = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+     <Fragment>
+        <Navbar/>
+     <div className='container'>
+       {!props.auth.isAuth ? <Redirect to="/register" /> : <Redirect to="/" />}
+          <Switch>
+            <Route exact path="/" component={contacts}/>
+            <Route  path="/register" component={Register}/>
+            <Route  path="/login" component={Login} />
+          </Switch>
     </div>
+    </Fragment>
   );
 }
-
-export default App;
+const mapStateToProps = ({auth}) => {
+return {
+  auth
+}
+}
+export default connect(mapStateToProps)(app);
