@@ -4,8 +4,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Register from './components/register';
 import Login from './components/login';
-import { connect } from 'react-redux'
 import contacts from './components/contacts';
+import { connect } from 'react-redux'
 
 
 const app = (props) => {
@@ -17,8 +17,8 @@ const app = (props) => {
        {!props.auth.isAuth ? <Redirect to="/register" /> : <Redirect to="/" />}
           <Switch>
             <Route exact path="/" component={contacts}/>
-            <Route  path="/register" component={Register}/>
-            <Route  path="/login" component={Login} />
+            <Route exact path="/register" component={Register}/>
+            <Route exact path="/login" component={Login} />
           </Switch>
     </div>
     </Fragment>
